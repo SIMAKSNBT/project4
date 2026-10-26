@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIMAK (Siap Memasak) SNBT - Racik Strategi Belajar & Masak Skor PTN!</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter & Orbitron -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Orbitron:wght@600;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brandRed: '#EF4444',
+                        brandOrange: '#F97316',
+                        darkBg: '#0F0F12',
+                        cardBg: '#18181C',
+                        cardBorder: '#27272A'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        gamer: ['Orbitron', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-text {
+            background: linear-gradient(135deg, #EF4444 0%, #F97316 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #EF4444 0%, #F97316 100%);
+        }
+        .glass-card {
+            background: rgba(24, 24, 28, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .glow-orange {
+            box-shadow: 0 0 25px rgba(249, 115, 22, 0.35);
+        }
+        .glow-red {
+            box-shadow: 0 0 25px rgba(239, 68, 68, 0.35);
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0F0F12;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #27272A;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #F97316;
+        }
+    </style>
+</head>
+<body class="bg-darkBg text-slate-100 font-sans min-h-screen flex flex-col justify-between selection:bg-brandOrange selection:text-white">
+
+    <!-- NAVIGATION BAR -->
+    <nav class="sticky top-0 z-40 bg-darkBg/90 backdrop-blur-md border-b border-cardBorder">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo SIMAK SNBT -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="switchTab('schedule')">
+                    <div class="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center font-gamer font-black text-xl text-white shadow-lg glow-red">
+                        <i class="fa-solid fa-fire-burner"></i>
+                    </div>
+                    <div>
+                        <span class="font-gamer font-bold text-lg sm:text-xl tracking-wider text-white">SIMAK <span class="gradient-text">SNBT</span></span>
+                        <span class="text-[9px] sm:text-[10px] block font-semibold text-orange-400 -mt-1 tracking-widest uppercase">Siap Memasak Skor PTN</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Nav Links -->
+                <div class="hidden md:flex items-center space-x-1 lg:space-x-2">
+                    <button onclick="switchTab('schedule')" id="nav-schedule" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-cardBg transition flex items-center gap-2">
+                        <i class="fa-solid fa-kitchen-set text-brandOrange"></i> Resep Harian
+                    </button>
+                    <button onclick="switchTab('material')" id="nav-material" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-cardBg transition flex items-center gap-2">
+                        <i class="fa-solid fa-book-open-reader text-brandRed"></i> Bahan Materi
+                    </button>
+                    <button onclick="switchTab('quiz')" id="nav-quiz" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-cardBg transition flex items-center gap-2">
+                        <i class="fa-solid fa-fire text-amber-500"></i> Uji Racikan (Kuis)
+                    </button>
+                    <button onclick="switchTab('analytics')" id="nav-analytics" class="nav-btn px-4 py-2 rounded-lg text-sm font-medium text-slate-300 hover:text-white hover:bg-cardBg transition flex items-center gap-2">
+                        <i class="fa-solid fa-chart-line text-emerald-400"></i> MMR & Rekap Performa
+                    </button>
+                    <button onclick="switchTab('pricing')" id="nav-pricing" class="nav-btn px-3 py-1.5 rounded-lg text-xs font-semibold uppercase tracking-wider bg-gradient-to-r from-amber-500 to-orange-500 text-black hover:opacity-90 transition flex items-center gap-1 shadow-md">
+                        <i class="fa-solid fa-utensils"></i> CHEF PASS
+                    </button>
+                </div>
+
+                <!-- Profile / Target Badge -->
+                <div class="hidden sm:flex items-center space-x-3">
+                    <div class="bg-cardBg border border-cardBorder px-3 py-1.5 rounded-xl flex items-center gap-2">
+                        <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-red-600 to-orange-400 flex items-center justify-center text-xs font-bold text-white">
+                            ITB
+                        </div>
+                        <div class="text-xs">
+                            <p class="font-bold text-slate-200" id="userTargetDisplay">Teknik Informatika</p>
+                            <p class="text-[10px] text-slate-400">Target: <span class="text-orange-400 font-semibold">ITB 2027</span></p>
+                        </div>
+                    </div>
+                    <button onclick="openOnboardingModal()" class="text-slate-400 hover:text-white p-2 rounded-lg hover:bg-cardBg transition" title="Pengaturan Racikan AI">
+                        <i class="fa-solid fa-sliders"></i>
+                    </button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button onclick="toggleMobileMenu()" class="text-slate-300 p-2 rounded-lg focus:outline-none">
+                        <i class="fa-solid fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Nav Menu -->
+        <div id="mobileMenu" class="hidden md:hidden bg-cardBg border-b border-cardBorder px-4 pt-2 pb-4 space-y-2">
+            <button onclick="switchTab('schedule'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-darkBg flex items-center gap-2">
+                <i class="fa-solid fa-kitchen-set text-brandOrange"></i> Resep Harian (Jadwal)
+            </button>
+            <button onclick="switchTab('material'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-darkBg flex items-center gap-2">
+                <i class="fa-solid fa-book-open-reader text-brandRed"></i> Bahan Materi AI
+            </button>
+            <button onclick="switchTab('quiz'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-darkBg flex items-center gap-2">
+                <i class="fa-solid fa-fire text-amber-500"></i> Uji Racikan (Kuis)
+            </button>
+            <button onclick="switchTab('analytics'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded-lg text-slate-300 hover:bg-darkBg flex items-center gap-2">
+                <i class="fa-solid fa-chart-line text-emerald-400"></i> MMR & Rekap Performa ML
+            </button>
+            <button onclick="switchTab('pricing'); toggleMobileMenu();" class="w-full text-left px-3 py-2 rounded-lg font-bold text-black bg-gradient-to-r from-amber-500 to-orange-500 flex items-center gap-2">
+                <i class="fa-solid fa-utensils"></i> UPGRADE CHEF PASS PRO
+            </button>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT AREA -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full">
+
+        <!-- TAB 1: RESEP HARIAN / JADWAL BELAJAR -->
+        <section id="tab-schedule" class="space-y-8">
+            <!-- Hero Banner -->
+            <div class="relative overflow-hidden rounded-3xl glass-card border border-cardBorder p-6 md:p-10 bg-gradient-to-r from-red-950/40 via-darkBg to-orange-950/40">
+                <div class="absolute -right-10 -bottom-10 w-64 h-64 bg-brandRed/20 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute right-1/3 -top-10 w-64 h-64 bg-brandOrange/15 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="relative z-10 max-w-3xl">
+                    <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-orange-500/10 border border-orange-500/30 text-orange-400 text-xs font-semibold mb-4">
+                        <i class="fa-solid fa-mortar-pestle text-brandOrange animate-pulse"></i> Solusi Anak SMK/SMA: Racik Strategi, Masak Skor PTN!
+                    </span>
+                    <h1 class="text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight mb-4">
+                        SIMAK SNBT: <span class="gradient-text">Siap Memasak Skor PTN Impianmu!</span>
+                    </h1>
+                    <p class="text-slate-300 text-sm md:text-base leading-relaxed mb-6">
+                        Sulit bagi waktu antara sekolah, magang/PKL
